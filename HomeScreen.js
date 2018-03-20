@@ -33,12 +33,6 @@ setNotification() {
     date: new Date(Date.now() + (this.state.desiredSeconds*1000)),
     imageUrl: this.props.navigation.state.params.pictureData,
   });
-
-  PushNotification.configure({
-    onNotification: function(notification) {
-      this.props.navigation.navigate('RemindersScreen', { pictureData: this.state.pictureData.uri });
-    },
-  });
 }
 
 

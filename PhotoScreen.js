@@ -27,6 +27,16 @@ export default class PhotoScreen extends Component {
     };
   }
 
+  componentDidMount() {
+    PushNotification.configure({
+      onNotification: function(notification) {
+        this.props.navigation.navigate('RemindersScreen', { 
+          pictureData: this.state.pictureData.uri, 
+        });
+      },
+    });
+  }
+
 
   async takePicture() {
     try {
@@ -58,7 +68,8 @@ export default class PhotoScreen extends Component {
             permissionDialogTitle={'Permission to use camera'}
             permissionDialogMessage={'We need your permission to use your camera phone'}
         />
-        <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center',}}>
+        
+        <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableOpacity
             onPress={this.takePicture.bind(this)}
             style = {styles.capture}
