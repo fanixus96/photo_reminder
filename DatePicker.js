@@ -14,7 +14,6 @@ export default class DateGet extends Component {
 
   updateDate(datetime) {
     this.setState({ datetime: datetime });
-    this.props.updateDatetime(datetime);
     var datetime = datetime.split(" ");
 
      var date = datetime[0].split("-");

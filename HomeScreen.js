@@ -20,8 +20,7 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      datetime: 'huj',
-      desiredSeconds: '1',
+      desiredSeconds: 1,
     };
     this.dateGetRef = null;
   }
@@ -34,11 +33,6 @@ setNotification() {
     imageUrl: this.props.navigation.state.params.pictureData,
   });
 }
-
-
-  updateDatetime(datetime) {
-    this.setState({ datetime: datetime });
-  }
 
   updateDesiredSeconds(seconds) {
     this.setState({ desiredSeconds: seconds
@@ -58,7 +52,6 @@ setNotification() {
       return (
         <View style={{width: 0, height: 0}}>
           <DateGet
-            updateDatetime={this.updateDatetime.bind(this)}
             updateDesiredSeconds={this.updateDesiredSeconds.bind(this)}
             navigation={this.props.navigation}
           />

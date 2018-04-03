@@ -15,6 +15,7 @@ import  DateGet  from './DatePicker';
 import HomeScreen from './HomeScreen';
 import RemindersScreen from './RemindersScreen';
 import { RNCamera } from 'react-native-camera';
+import PushNotification from 'react-native-push-notification';
 
 export default class PhotoScreen extends Component {
 
@@ -25,16 +26,6 @@ export default class PhotoScreen extends Component {
       pictureData: null,
       message: "your reminder",
     };
-  }
-
-  componentDidMount() {
-    PushNotification.configure({
-      onNotification: function(notification) {
-        this.props.navigation.navigate('RemindersScreen', { 
-          pictureData: this.state.pictureData.uri, 
-        });
-      },
-    });
   }
 
 
@@ -52,7 +43,7 @@ export default class PhotoScreen extends Component {
   }
 
   saveImage() {
-    this.props.navigation.navigate('HomeScreen', {message: this.state.message, pictureData: this.state.pictureData.uri });
+    this.props.navigation.navigate('HomeScreen', { message: this.state.message, pictureData: this.state.pictureData.uri });
   }
 
   renderCamera() {
@@ -82,31 +73,32 @@ export default class PhotoScreen extends Component {
   }
 
   renderImage() {
-    console.log(this.state.pictureData.uri);
+  
     return (
       <View style={styles.imagecontainer}>
         <TextInput
         style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         onChangeText={(message) => this.setState({message})}
         value={this.state.message}
-    />
+      />
 
-        <TouchableNativeFeedback
+      <TouchableNativeFeedback
          onPress={this.dismissImage.bind(this)}
          background={TouchableNativeFeedback.SelectableBackground()}>
-       <View style={{width: 150, height: 100, backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+        <View style={{width: 150, height: 100, backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
          <Text style={{margin: 30}}>Cancel</Text>
-       </View>
-     </TouchableNativeFeedback>
-     <TouchableNativeFeedback
-      onPress={this.saveImage.bind(this)}
-      background={TouchableNativeFeedback.SelectableBackground()}>
-    <View style={{width: 150, height: 100, backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
-      <Text style={{margin: 30}}>Save</Text>
-    </View>
-  </TouchableNativeFeedback>
+        </View>
+      </TouchableNativeFeedback>
 
-          <Image
+      <TouchableNativeFeedback
+        onPress={this.saveImage.bind(this)}
+        background={TouchableNativeFeedback.SelectableBackground()}>
+        <View style={{width: 150, height: 100, backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+          <Text style={{margin: 30}}>Save</Text>
+        </View>
+      </TouchableNativeFeedback>
+
+        <Image
             style={styles.container}
             source={{ uri: this.state.pictureData.uri }}
           />
@@ -121,12 +113,7 @@ export default class PhotoScreen extends Component {
       return this.renderCamera();
     }
   }
-
-
 }
-
-
-
 
 const styles = StyleSheet.create({
   container: {
