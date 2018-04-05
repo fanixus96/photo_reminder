@@ -27,7 +27,7 @@ export default class HomeScreen extends Component {
 
 
 setNotification() {
-  PushNotification.localNotification({
+  PushNotification.localNotificationSchedule({
     message: this.props.navigation.state.params.message,
     date: new Date(Date.now() + (this.state.desiredSeconds*1000)),
     imageUrl: this.props.navigation.state.params.pictureData,
